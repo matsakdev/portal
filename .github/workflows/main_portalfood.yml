@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'portalfood'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AF7F13404A6B408FAE1B2F366EFD4DD7 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_417CE7C7461E4C65BCE09DF7212521EC }}
           package: '*.war'
