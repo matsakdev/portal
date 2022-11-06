@@ -4,6 +4,7 @@ import com.portal.server.entity.User;
 import com.portal.server.exceptions.OAuth2AuthenticationProcessingException;
 import com.portal.server.repository.UserRepository;
 import com.portal.server.security.AuthProvider;
+import com.portal.server.security.Authority;
 import com.portal.server.security.UserPrincipal;
 import com.portal.server.security.oauth2.user.OAuth2UserInfo;
 import com.portal.server.security.oauth2.user.OAuth2UserInfoFactory;
@@ -65,11 +66,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         User user = new User();
 
-        user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+        user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId().toUpperCase()));
         user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
+        user.setAuthority(Authority.ROLE_USER);
         return userRepository.save(user);
     }
 
