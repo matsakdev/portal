@@ -1,0 +1,50 @@
+{
+  "groups": [
+    {
+      "name": "app",
+      "type": "com.portal.server.config.AppProperties",
+      "sourceType": "com.portal.server.config.AppProperties"
+    },
+    {
+      "name": "app.auth",
+      "type": "com.portal.server.config.AppProperties$Auth",
+      "sourceType": "com.portal.server.config.AppProperties",
+      "sourceMethod": "getAuth()"
+    },
+    {
+      "name": "app.cors",
+      "type": "com.portal.server.config.AppProperties$Cors",
+      "sourceType": "com.portal.server.config.AppProperties",
+      "sourceMethod": "getCors()"
+    },
+    {
+      "name": "app.oauth2",
+      "type": "com.portal.server.config.AppProperties$OAuth2",
+      "sourceType": "com.portal.server.config.AppProperties",
+      "sourceMethod": "getOauth2()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.auth.token-expiration-msec",
+      "type": "java.lang.Long",
+      "sourceType": "com.portal.server.config.AppProperties$Auth"
+    },
+    {
+      "name": "app.auth.token-secret",
+      "type": "java.lang.String",
+      "sourceType": "com.portal.server.config.AppProperties$Auth"
+    },
+    {
+      "name": "app.cors.max-connection-time-sec",
+      "type": "java.lang.Long",
+      "sourceType": "com.portal.server.config.AppProperties$Cors"
+    },
+    {
+      "name": "app.oauth2.authorized-redirect-uris",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.portal.server.config.AppProperties$OAuth2"
+    }
+  ],
+  "hints": []
+}
