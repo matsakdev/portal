@@ -33,6 +33,17 @@ public class User {
     @Column(name="password")
     private String password;
 
+    @Column(name="note")
+    private String note;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public Authority getAuthority() {
         return authority;
     }

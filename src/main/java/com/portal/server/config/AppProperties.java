@@ -13,6 +13,8 @@ public class AppProperties {
     private final OAuth2 oauth2 = new OAuth2();
     private final Cors cors = new Cors();
 
+    private final Database database = new Database();
+
     public static class Auth {
         private String tokenSecret;
         private long tokenExpirationMsec;
@@ -57,7 +59,18 @@ public class AppProperties {
         public void setMaxConnectionTimeSec(Long maxConnectionTimeSec) {
             this.maxConnectionTimeSec = maxConnectionTimeSec;
         }
+    }
 
+    public static class Database {
+        private String persistenceUnitName;
+
+        public String getPersistenceUnitName() {
+            return persistenceUnitName;
+        }
+
+        public void setPersistenceUnitName(String persistenceUnitName) {
+            this.persistenceUnitName = persistenceUnitName;
+        }
     }
 
         public Auth getAuth() {
@@ -66,6 +79,10 @@ public class AppProperties {
 
     public OAuth2 getOauth2() {
         return oauth2;
+    }
+
+    public Database getDatabase() {
+        return database;
     }
 
     public Cors getCors(){
