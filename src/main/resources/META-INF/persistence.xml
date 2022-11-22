@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="MySqlEntityManager">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.portal.server.entity.Recipe</class>
+        <class>com.portal.server.entity.DishCategory</class>
+        <class>com.portal.server.entity.Dish</class>
+        <class>com.portal.server.entity.DishProduct</class>
+        <class>com.portal.server.entity.Fridge</class>
+        <class>com.portal.server.entity.Order</class>
+        <class>com.portal.server.entity.User</class>
+        <class>com.portal.server.entity.Recipe</class>
+        <class>com.portal.server.entity.Product</class>
+        <class>com.portal.server.entity.ProductCategory</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://portalfood.mysql.database.azure.com:3306/portaldb?useSSL=true"/>
+            <property name="javax.persistence.jdbc.user" value="CloudSAa238d6b7"/>
+            <property name="javax.persistence.jdbc.password" value="*Database*Portal!01"/>
+        </properties>
+    </persistence-unit>
+</persistence>

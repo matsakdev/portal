@@ -8,10 +8,9 @@ import java.util.Set;
 @Entity
 public class Dish {
 
-
     @Id
     @Column(name="DISH_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(name="NAME")
@@ -19,28 +18,32 @@ public class Dish {
 
     @Column(name="PHOTO_URL")
     protected String photo;
-
     @OneToOne
     @JoinColumn(name = "CATEGORY_ID")
     protected DishCategory category;
-
     @Column(name="CALORICITY")
     private Double caloricity;
     @OneToMany(mappedBy="dish")
-    protected Set<DishProducts> dishProducts = new HashSet<>();
+    protected Set<DishProduct> dishProducts = new HashSet<>();
 
     @OneToMany(mappedBy = "dish")
     protected Set<Recipe> instructions = new HashSet<>();
 
     public Dish(){}
 
-    public Dish(String name, String photo, DishCategory category, Double caloricity, Set<DishProducts> dishProducts, Set<Recipe> instructions) {
+    public Dish(String name, String photo, DishCategory category, Double caloricity, Set<DishProduct> dishProducts, Set<Recipe> instructions) {
         this.name = name;
         this.photo = photo;
         this.category = category;
         this.caloricity = caloricity;
         this.dishProducts = dishProducts;
         this.instructions = instructions;
+    }
+
+    public Dish(String name, String photo, Double caloricity) {
+        this.name = name;
+        this.photo = photo;
+        this.caloricity = caloricity;
     }
 
     public Long getId() {
@@ -55,11 +58,11 @@ public class Dish {
         this.photo = photo;
     }
 
-    public Set<DishProducts> getDishProducts() {
+    public Set<DishProduct> getDishProducts() {
         return dishProducts;
     }
 
-    public void setDishProducts(Set<DishProducts> dishProducts) {
+    public void setDishProducts(Set<DishProduct> dishProducts) {
         this.dishProducts = dishProducts;
     }
 
@@ -77,6 +80,22 @@ public class Dish {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public DishCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(DishCategory category) {
+        this.category = category;
+    }
+
+    public Double getCaloricity() {
+        return caloricity;
+    }
+
+    public void setCaloricity(Double caloricity) {
+        this.caloricity = caloricity;
     }
 
     @Override

@@ -64,4 +64,9 @@ public class Recipe {
 
         dish.getInstructions().add(this);
     }
+
+    public Recipe(Long step, String description) {
+        this.id.step = step;
+        this.description = description;
+    }
 }

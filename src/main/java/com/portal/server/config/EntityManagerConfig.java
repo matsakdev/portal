@@ -15,33 +15,37 @@ import javax.persistence.PersistenceUnit;
 @org.springframework.context.annotation.Configuration
 public class EntityManagerConfig {
 
-//    @Autowired
-//    private static EntityManagerFactory entityManagerFactory;
-//
+    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("MySqlEntityManager");
+
 //    @Bean
 //    public static EntityManagerFactory getEntityManagerFactory(){
 //        return Persistence.createEntityManagerFactory("PortalMySqlUnit");
 //    }
-//
-//    @Bean
-//    public static EntityManager getEntityManager(){
-//        return entityManagerFactory.createEntityManager();
-//    }
 
     @Bean
-    public static SessionFactory getSessionFactory(){
-        return new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Dish.class)
-                .addAnnotatedClass(DishProducts.class)
-                .addAnnotatedClass(Product.class)
-                .addAnnotatedClass(Recipe.class)
-                .addAnnotatedClass(ProductCategory.class)
-                .addAnnotatedClass(DishCategory.class)
-                .addAnnotatedClass(Fridge.class)
-                .addAnnotatedClass(Order.class)
-                .buildSessionFactory();
+    public static EntityManager getEntityManager(){
+        return entityManagerFactory.createEntityManager();
     }
+//
+//    @Bean
+//    private static EntityManagerFactory getEntityManagerFactory() {
+//        return entityManagerFactory;
+//    }
+
+//    @Bean
+//    public static SessionFactory getSessionFactory(){
+//        return new Configuration()
+//                .configure("hibernate.cfg.xml")
+//                .addAnnotatedClass(Dish.class)
+//                .addAnnotatedClass(DishProducts.class)
+//                .addAnnotatedClass(Product.class)
+//                .addAnnotatedClass(Recipe.class)
+//                .addAnnotatedClass(ProductCategory.class)
+//                .addAnnotatedClass(DishCategory.class)
+//                .addAnnotatedClass(Fridge.class)
+//                .addAnnotatedClass(Order.class)
+//                .buildSessionFactory();
+//    }
 
 
 

@@ -8,34 +8,34 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
+@Component
 public class DishCategoryDAOImpl implements DishCategoryDAO {
 
     private final Logger logger = LogManager.getLogger(DishCategoryDAOImpl.class);
 
-    @Autowired
-    SessionFactory sessionFactory;
+    @PersistenceContext
+    EntityManager entityManager;
 
+    @Transactional
     @Override
     public void saveCategory(DishCategory dishCategory) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
         try {
-            session.save(dishCategory);
-            session.getTransaction().commit();
+            entityManager.persist(dishCategory);
         } catch (PersistenceException error) {
             processException(error, dishCategory);
         }
     }
-
+    @Transactional
     @Override
     public DishCategory getCategoryById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        DishCategory category = session.get(DishCategory.class, id);
-        session.getTransaction().commit();
+        DishCategory category = entityManager.find(DishCategory.class, id);
         return category;
     }
 

@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name="dish_products")
 @org.hibernate.annotations.Immutable
-public class DishProducts {
+public class DishProduct {
 
     @Embeddable
     public static class Id implements Serializable {
@@ -61,9 +61,37 @@ public class DishProducts {
     )
     protected Product product;
 
-    public DishProducts(){}
+    public DishProduct(){}
 
-    public DishProducts(
+    public Id getId() {
+        return id;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public DishProduct(
             Long amount,
             Dish dish, Product product) {
         this.amount = amount;
@@ -74,7 +102,17 @@ public class DishProducts {
         this.id.productId = product.getId();
 
         dish.getDishProducts().add(this);
-        product.getDishProducts().add(this);
+//        product.getDishProducts().add(this);
+    }
+
+    public DishProduct(
+            Dish dish,
+            Long productId,
+            Long amount
+    ) {
+        this.dish = dish;
+        this.id.productId = productId;
+        this.id.dishId = dish.getId();
     }
 
 }

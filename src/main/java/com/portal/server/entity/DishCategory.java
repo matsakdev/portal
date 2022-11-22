@@ -7,12 +7,15 @@ import javax.persistence.*;
 public class DishCategory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private Long id;
 
-    @Column(name="TITLE", unique = true)
+    @Column(name="TITLE", unique = true, nullable = false)
     private String title;
+
+    @Column(name="PHOTO_URL", nullable = false)
+    private String photo;
 
     public Long getId() {
         return id;
@@ -26,10 +29,19 @@ public class DishCategory {
         this.title = title;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     public DishCategory(){}
 
-    public DishCategory(String title) {
+    public DishCategory(String title, String photo) {
         this.title = title;
+        this.photo = photo;
     }
 
     @Override

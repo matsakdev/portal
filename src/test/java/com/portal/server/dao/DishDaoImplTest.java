@@ -2,20 +2,12 @@ package com.portal.server.dao;
 
 import com.portal.server.config.EntityManagerConfig;
 import com.portal.server.entity.*;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-@SpringBootTest(classes = {DishDaoImpl.class, EntityManagerConfig.class, DishProducts.class, Product.class})
+@SpringBootTest(classes = {DishDaoImpl.class, EntityManagerConfig.class, DishProduct.class, Product.class})
 class DishDaoImplTest {
 
     @Autowired

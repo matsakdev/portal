@@ -55,7 +55,7 @@ public class SecurityConfig{
       the session. We'll save the request in a Base64 encoded cookie instead.
     */
     @Bean
-    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
+    public HttpCookieOAuth2AuthorizationRequestRepository  cookieAuthorizationRequestRepository() {
         return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
 

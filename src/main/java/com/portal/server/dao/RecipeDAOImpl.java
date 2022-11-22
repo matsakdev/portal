@@ -8,39 +8,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 public class RecipeDAOImpl implements RecipeDAO {
 
     Logger logger = LogManager.getLogger(RecipeDAOImpl.class);
 
-    @Autowired
-    SessionFactory sessionFactory;
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Override
     public void saveRecipe(Recipe recipe) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        try {
-            session.save(recipe);
-            session.getTransaction().commit();
-        } catch (PersistenceException e) {
-            logger.info(e.getMessage());
-            throw e;
-        }
+        entityManager.persist(recipe);
     }
 
     @Override
     public Recipe getRecipeById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        try {
-            Recipe recipe = session.get(Recipe.class, id);
-            session.getTransaction().commit();
-            return recipe;
-        } catch (PersistenceException e) {
-            logger.info(e.getMessage());
-            throw e;
-        }
+        return entityManager.find(Recipe.class, id);
     }
 }
