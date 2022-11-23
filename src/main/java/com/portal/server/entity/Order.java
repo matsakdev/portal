@@ -4,21 +4,12 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ID")
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "id")
-    private User customer;
-
-    @ManyToMany
-            @JoinTable(name = "ORDER_PRODUCTS",
-            joinColumns = @JoinColumn(name = "ORDER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
-    private Set<Product> products;
 
     @Column(name = "USER_NOTE")
     private String userNote;
@@ -26,15 +17,29 @@ public class Order {
     @Column(name = "MODERATOR_NOTE")
     private String moderatorNote;
 
-
     private Address address;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public Order(User customer, Set<Product> products, String userNote, String moderatorNote, Address address, OrderStatus status) {
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User customer;
+
+    @OneToMany(mappedBy = "order")
+    private Set<OrderProduct> products;
+
+
+    public Order(User customer, Set<OrderProduct> products, String userNote, String moderatorNote, Address address, OrderStatus status) {
         this.customer = customer;
         this.products = products;
+        this.userNote = userNote;
+        this.moderatorNote = moderatorNote;
+        this.address = address;
+        this.status = status;
+    }
+
+    public Order(String userNote, String moderatorNote, Address address, OrderStatus status) {
         this.userNote = userNote;
         this.moderatorNote = moderatorNote;
         this.address = address;
@@ -56,12 +61,8 @@ public class Order {
         this.customer = customer;
     }
 
-    public Set<Product> getProducts() {
+    public Set<OrderProduct> getProducts() {
         return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
     }
 
     public String getUserNote() {
@@ -94,5 +95,9 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public void setProducts(Set<OrderProduct> products) {
+        this.products = products;
     }
 }

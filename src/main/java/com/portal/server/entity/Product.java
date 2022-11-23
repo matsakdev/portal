@@ -22,8 +22,8 @@ public class Product {
     @JoinColumn(name = "PRODUCT_CATEGORY_ID")
     protected ProductCategory category;
 
-    @ManyToMany(mappedBy = "products")
-    Set<Order> orders;
+    @OneToMany(mappedBy = "product")
+    Set<OrderProduct> orders;
 
     public ProductCategory getCategory() {
         return category;
@@ -87,11 +87,11 @@ public class Product {
         this.photo = photo;
     }
 
-    //    public Set<DishProduct> getDishProducts() {
-//        return dishProducts;
-//    }
-//
-//    public void setDishProducts(Set<DishProduct> dishProducts) {
-//        this.dishProducts = dishProducts;
-//    }
+    public Set<OrderProduct> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderProduct> orders) {
+        this.orders = orders;
+    }
 }

@@ -42,7 +42,7 @@ public class DishProduct {
     }
 
     @EmbeddedId
-    Id id = new Id();
+    private Id id = new Id();
 
     @Column(name="AMOUNT")
     @NotNull

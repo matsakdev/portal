@@ -14,6 +14,7 @@
         <class>com.portal.server.entity.Recipe</class>
         <class>com.portal.server.entity.Product</class>
         <class>com.portal.server.entity.ProductCategory</class>
+        <class>com.portal.server.entity.OrderProduct</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>

@@ -2,6 +2,7 @@ package com.portal.server.controller;
 
 import com.portal.server.entity.Order;
 import com.portal.server.entity.Product;
+import com.portal.server.payload.order.RequestAddOrder;
 import com.portal.server.repository.OrderRepository;
 import com.portal.server.repository.OrderRepositoryImpl;
 import com.portal.server.repository.ProductRepository;
@@ -21,14 +22,14 @@ public class OrderController {
 
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")
-    public Order addProduct(Order order) {
-        orderRepository.save(order);
-        return order;
+    public Order addOrder(@RequestBody RequestAddOrder requestAddOrder) {
+        orderRepository.save(requestAddOrder.getCustomerId(), requestAddOrder.getOrderDetails(), requestAddOrder.getProducts());
+        return requestAddOrder.getOrderDetails();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<Order> getOrderById(@RequestBody Long id) {
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         Order order = orderRepository.getById(id);
         return order == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(order);
     }
@@ -42,7 +43,7 @@ public class OrderController {
 
     @DeleteMapping
     @PreAuthorize("hasRole('MANAGER')")
-    public Product deleteProduct(Product product) {
+    public Product deleteOrder(Product product) {
         return product;
     }
 }
