@@ -2,6 +2,7 @@ package com.portal.server.repository;
 
 import com.portal.server.dao.OrderDAO;
 import com.portal.server.dao.ProductDAO;
+import com.portal.server.dto.OrderDto;
 import com.portal.server.entity.Order;
 import com.portal.server.entity.OrderProduct;
 import com.portal.server.entity.Product;
@@ -39,8 +40,13 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getAllOrders() {
-        return orderDAO.getAllOrders();
+    public List<OrderDto> getAllOrders() {
+        List<OrderDto> ordersTransfer = new ArrayList<>();
+        List<Order> allOrders = orderDAO.getAllOrders();
+        allOrders.forEach(element -> {
+            ordersTransfer.add(new OrderDto(element));
+        });
+        return ordersTransfer;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.portal.server.repository;
 
+import com.portal.server.dto.OrderDto;
 import com.portal.server.entity.Order;
 import com.portal.server.entity.OrderProduct;
 import com.portal.server.entity.Product;
@@ -15,7 +16,7 @@ public interface OrderRepository {
     void save(Set<OrderProduct> orderProducts);
     Order getById(Long id);
 
-    List<Order> getAllOrders();
+    List<OrderDto> getAllOrders();
 
     void save(Long customerId, Order orderDetails, Map<Long, Long> products);
 

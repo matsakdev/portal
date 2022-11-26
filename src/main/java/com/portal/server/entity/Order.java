@@ -29,7 +29,6 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private Set<OrderProduct> products;
 
-
     public Order(User customer, Set<OrderProduct> products, String userNote, String moderatorNote, Address address, OrderStatus status) {
         this.customer = customer;
         this.products = products;

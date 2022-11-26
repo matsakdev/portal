@@ -1,5 +1,7 @@
 package com.portal.server.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.portal.server.dto.OrderDto;
 import com.portal.server.entity.Order;
 import com.portal.server.entity.Product;
 import com.portal.server.payload.order.RequestAddOrder;
@@ -12,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
@@ -44,9 +47,8 @@ public class OrderController {
 
     @GetMapping()
     @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> allOrders = orderRepository.getAllOrders();
-        return allOrders == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(allOrders);
+    public ResponseEntity<List<OrderDto>> getAllOrders() {
+        return ResponseEntity.of(Optional.of(orderRepository.getAllOrders()));
     }
 
     @DeleteMapping
