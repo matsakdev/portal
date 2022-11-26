@@ -11,6 +11,5 @@ public interface OrderDAO {
     Order getById(Long id);
 
     List<Order> getAllOrders();
-
-    void save(Set<OrderProduct> orderProducts);
+    void save(OrderProduct orderProduct);
 }

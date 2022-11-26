@@ -34,6 +34,14 @@ public class OrderController {
         return order == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok(order);
     }
 
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
+    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
+        if (!order.getId().equals(id)) return ResponseEntity.badRequest().build();
+        orderRepository.update(order);
+        return ResponseEntity.ok(order);
+    }
+
     @GetMapping()
     @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<List<Order>> getAllOrders() {

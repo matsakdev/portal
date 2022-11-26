@@ -18,5 +18,7 @@ public interface OrderRepository {
     List<Order> getAllOrders();
 
     void save(Long customerId, Order orderDetails, Map<Long, Long> products);
+
+    void update(Order order);
 }
 

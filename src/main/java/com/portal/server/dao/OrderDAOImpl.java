@@ -37,13 +37,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     @Transactional
-    public void save(Set<OrderProduct> orderProducts) {
-//        orderProducts.forEach(pair -> entityManager.persist(pair));
-//        entityManager.persist(orderProducts);
-        orderProducts.forEach(this::save);
-    }
-
-
     public void save(OrderProduct orderProduct) {
         entityManager.persist(orderProduct);
     }

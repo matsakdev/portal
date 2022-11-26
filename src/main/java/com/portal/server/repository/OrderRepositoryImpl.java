@@ -30,7 +30,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void save(Set<OrderProduct> orderProducts) {
-        orderDAO.save(orderProducts);
+        orderProducts.forEach(orderDAO::save);
     }
 
     @Override
@@ -50,9 +50,18 @@ public class OrderRepositoryImpl implements OrderRepository {
         orderDetails.setCustomer(user);
         save(orderDetails);
         Set<OrderProduct> orderProducts = attachOrderWithProducts(orderDetails, products);
-        save(orderProducts);
+        orderProducts.forEach(this::save);
 //        orderDetails.setProducts(orderProducts);
 //        save(orderDetails);
+    }
+
+    @Override
+    public void update(Order order) {
+        orderDAO.save(order);
+    }
+
+    private void save(OrderProduct orderProduct) {
+        orderDAO.save(orderProduct);
     }
 
     private Set<OrderProduct> attachOrderWithProducts(Order orderDetails, Map<Long, Long> products) {
