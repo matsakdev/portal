@@ -20,6 +20,9 @@ public class Product {
     @Column(name="PHOTO_URL", nullable = false)
     protected String photo;
 
+    @Column(name="PRICE")
+    protected Double price;
+
     @OneToOne
     @JoinColumn(name = "PRODUCT_CATEGORY_ID")
     protected ProductCategory category;
@@ -27,6 +30,20 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     Set<OrderProduct> orders;
+
+    public Product(){}
+
+    public Product(String name, String photo, Double price, ProductCategory category) {
+        this.name = name;
+        this.photo = photo;
+        this.category = category;
+        this.price = price;
+    }
+
+    public Product(String name, String photo) {
+        this.name = name;
+        this.photo = photo;
+    }
 
     public ProductCategory getCategory() {
         return category;
@@ -57,6 +74,23 @@ public class Product {
         this.photo = photo;
     }
 
+    public Set<OrderProduct> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderProduct> orders) {
+        this.orders = orders;
+    }
+
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,24 +111,4 @@ public class Product {
         return result;
     }
 
-    public Product(){}
-
-    public Product(String name, String photo, ProductCategory category) {
-        this.name = name;
-        this.photo = photo;
-        this.category = category;
-    }
-
-    public Product(String name, String photo) {
-        this.name = name;
-        this.photo = photo;
-    }
-
-    public Set<OrderProduct> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<OrderProduct> orders) {
-        this.orders = orders;
-    }
 }
