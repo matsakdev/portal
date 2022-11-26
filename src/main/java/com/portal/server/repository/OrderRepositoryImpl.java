@@ -40,13 +40,18 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<OrderDto> getAllOrders() {
+    public List<OrderDto> getAllOrdersMinimal() {
         List<OrderDto> ordersTransfer = new ArrayList<>();
-        List<Order> allOrders = orderDAO.getAllOrders();
+        List<Order> allOrders = getAllOrders();
         allOrders.forEach(element -> {
             ordersTransfer.add(new OrderDto(element));
         });
         return ordersTransfer;
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderDAO.getAllOrders();
     }
 
     @Override

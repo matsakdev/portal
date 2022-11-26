@@ -8,6 +8,8 @@ import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
     @Autowired
@@ -31,5 +33,10 @@ public class ProductRepositoryImpl implements ProductRepository {
         ProductCategory productCategory = productCategoryDAO.getById(categoryId);
         product.setCategory(productCategory);
         addProduct(product);
+    }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return productDAO.getAll();
     }
 }

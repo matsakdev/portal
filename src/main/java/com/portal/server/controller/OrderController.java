@@ -45,9 +45,15 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
+    @GetMapping("/minimal")
+    @PreAuthorize("hasRole('MANAGER')")
+    public ResponseEntity<List<OrderDto>> getAllOrdersMinimal() {
+        return ResponseEntity.of(Optional.of(orderRepository.getAllOrdersMinimal()));
+    }
+
     @GetMapping()
     @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<List<OrderDto>> getAllOrders() {
+    public ResponseEntity<List<Order>> getAllOrders() {
         return ResponseEntity.of(Optional.of(orderRepository.getAllOrders()));
     }
 

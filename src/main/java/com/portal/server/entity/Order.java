@@ -1,6 +1,10 @@
 package com.portal.server.entity;
 
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -22,6 +26,13 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ORDER_TIME")
+    @org.hibernate.annotations.Generated(
+            GenerationTime.INSERT
+    )
+    private Date orderTime;
+
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User customer;
@@ -29,13 +40,14 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private Set<OrderProduct> products;
 
-    public Order(User customer, Set<OrderProduct> products, String userNote, String moderatorNote, Address address, OrderStatus status) {
+    public Order(User customer, Set<OrderProduct> products, String userNote, String moderatorNote, Address address, OrderStatus status, Date orderTime) {
         this.customer = customer;
         this.products = products;
         this.userNote = userNote;
         this.moderatorNote = moderatorNote;
         this.address = address;
         this.status = status;
+        this.orderTime = orderTime;
     }
 
     public Order(String userNote, String moderatorNote, Address address, OrderStatus status) {
@@ -98,5 +110,13 @@ public class Order {
 
     public void setProducts(Set<OrderProduct> products) {
         this.products = products;
+    }
+
+    public Date getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
     }
 }

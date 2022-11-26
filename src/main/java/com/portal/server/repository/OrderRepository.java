@@ -16,7 +16,8 @@ public interface OrderRepository {
     void save(Set<OrderProduct> orderProducts);
     Order getById(Long id);
 
-    List<OrderDto> getAllOrders();
+    List<OrderDto> getAllOrdersMinimal();
+    List<Order> getAllOrders();
 
     void save(Long customerId, Order orderDetails, Map<Long, Long> products);
 

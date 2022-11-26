@@ -42,7 +42,8 @@ public class OrderProduct {
     }
 
     @EmbeddedId
-    Id id = new Id();
+    @JsonIgnore
+    private Id id = new Id();
 
     @Column(name = "AMOUNT")
     @NotNull
