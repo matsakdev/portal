@@ -42,6 +42,11 @@ public class DishCategoryDAOImpl implements DishCategoryDAO {
         return category;
     }
 
+    @Override
+    public Set<DishCategory> getAllCategories() {
+        return Set.copyOf(entityManager.createQuery("SELECT category FROM DishCategory category").getResultList());
+    }
+
     private void processException(PersistenceException error, DishCategory dishCategory) {
         if (error.getCause().getClass().equals(org.hibernate.exception.ConstraintViolationException.class)) {
             throw new DuplicateEntryException("The same category has been already exists @title: " + dishCategory.getTitle(), error);

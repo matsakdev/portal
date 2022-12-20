@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Set;
 
 @Component
 public class ProductCategoryDAOImpl implements ProductCategoryDAO {
@@ -20,5 +21,10 @@ public class ProductCategoryDAOImpl implements ProductCategoryDAO {
     @Override
     public ProductCategory getById(Long id) {
         return entityManager.find(ProductCategory.class, id);
+    }
+
+    @Override
+    public Set<ProductCategory> getAllCategories() {
+        return Set.copyOf(entityManager.createQuery("SELECT category FROM ProductCategory category").getResultList());
     }
 }

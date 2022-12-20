@@ -25,4 +25,9 @@ public class DishCategoryRepositoryImpl implements DishCategoryRepository {
     public DishCategory getById(Long id) {
         return dishCategoryDAO.getCategoryById(id);
     }
+
+    @Override
+    public Set<DishCategory> getAllCategories() {
+        return dishCategoryDAO.getAllCategories();
+    }
 }

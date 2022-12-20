@@ -11,4 +11,6 @@ public interface DishCategoryDAO {
     void saveCategory(DishCategory dishCategory);
 
     DishCategory getCategoryById(Long id);
+
+    Set<DishCategory> getAllCategories();
 }

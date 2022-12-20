@@ -10,4 +10,5 @@ import java.util.Set;
 public interface DishCategoryRepository {
     void save(DishCategory dishCategory);
     DishCategory getById(Long id);
+    Set<DishCategory> getAllCategories();
 }

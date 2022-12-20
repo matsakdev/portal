@@ -1,0 +1,1 @@
+INSERT INTO portaldb.fridge (PRODUCT_ID, USER_ID, AMOUNT) VALUES (40, 2, 3);
