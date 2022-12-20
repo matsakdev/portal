@@ -14,4 +14,6 @@ public interface DishDao {
     void deleteDish(Long id);
 
     void update(Dish dish);
+
+    Set<Dish> getAllDishesByCategory(Long categoryId);
 }

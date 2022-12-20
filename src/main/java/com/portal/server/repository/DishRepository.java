@@ -3,9 +3,12 @@ package com.portal.server.repository;
 import com.portal.server.entity.Dish;
 import com.portal.server.entity.DishProduct;
 import com.portal.server.entity.Recipe;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 
 public interface DishRepository {
 
@@ -16,4 +19,8 @@ public interface DishRepository {
     void updateDish(Dish dish);
 
     void createDish(Dish dish, Long categoryId, Set<Recipe> instructions, Set<DishProduct> dishProducts);
+
+    Set<Dish> findAll();
+
+    Set<Dish> getAllByCategory(Long categoryId);
 }

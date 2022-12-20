@@ -1,5 +1,7 @@
 package com.portal.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -42,6 +44,7 @@ public class DishProduct {
     }
 
     @EmbeddedId
+    @JsonIgnore
     private Id id = new Id();
 
     @Column(name="AMOUNT")
@@ -52,6 +55,7 @@ public class DishProduct {
     @JoinColumn(
             name="DISH_ID",
             insertable = false, updatable = false)
+    @JsonIgnore
     protected Dish dish;
 
     @ManyToOne

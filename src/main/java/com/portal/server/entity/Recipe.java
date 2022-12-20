@@ -1,5 +1,7 @@
 package com.portal.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -48,7 +50,16 @@ public class Recipe {
     @JoinColumn(
             name="DISH_ID",
             insertable = false, updatable = false)
+    @JsonIgnore
     protected Dish dish;
+
+    public Long getStep() {
+        return id.step;
+    }
+
+    public void setStep(Long step) {
+        this.id.step = step;
+    }
 
     public Recipe(){
     }
@@ -65,8 +76,19 @@ public class Recipe {
         dish.getInstructions().add(this);
     }
 
-    public Recipe(Long step, String description) {
-        this.id.step = step;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 }

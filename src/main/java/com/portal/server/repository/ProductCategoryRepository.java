@@ -1,4 +1,4 @@
-package com.portal.server.controller;
+package com.portal.server.repository;
 
 import com.portal.server.entity.Product;
 import com.portal.server.entity.ProductCategory;

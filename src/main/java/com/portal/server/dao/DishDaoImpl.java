@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -36,7 +37,8 @@ public class DishDaoImpl implements DishDao {
     @Override
     public Set<Dish> getAllDishes() {
         Query query = entityManager.createQuery("SELECT dish FROM Dish dish");
-        return (Set<Dish>) query.getResultStream().collect(Collectors.toSet());
+        List<Dish> dishes = query.getResultList();
+        return Set.copyOf(dishes);
     }
 
     @Override
@@ -48,6 +50,13 @@ public class DishDaoImpl implements DishDao {
     public void update(Dish dish) {
         entityManager.persist(dish);
         logger.debug("Dish @id: " + dish.getId() + " was updated. " + dish);
+    }
+
+    @Override
+    public Set<Dish> getAllDishesByCategory(Long categoryId) {
+        Query query = entityManager.createQuery("SELECT dish FROM Dish dish WHERE dish.category.id=" + categoryId);
+        List<Dish> dishes = query.getResultList();
+        return Set.copyOf(dishes);
     }
 
 //    private <T, R> R processTransaction(T input, DaoProcessor<Session, T, R> function) {

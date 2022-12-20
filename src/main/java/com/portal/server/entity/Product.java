@@ -31,6 +31,9 @@ public class Product {
     @JsonIgnore
     Set<OrderProduct> orders;
 
+    @Column(name="CAPACITY")
+    protected Double capacity;
+
     public Product(){}
 
     public Product(String name, String photo, Double price, ProductCategory category) {
@@ -38,6 +41,15 @@ public class Product {
         this.photo = photo;
         this.category = category;
         this.price = price;
+    }
+
+    public Product(String name, String photo, Double price, ProductCategory category, Set<OrderProduct> orders, Double capacity) {
+        this.name = name;
+        this.photo = photo;
+        this.price = price;
+        this.category = category;
+        this.orders = orders;
+        this.capacity = capacity;
     }
 
     public Product(String name, String photo) {
@@ -89,6 +101,14 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Double capacity) {
+        this.capacity = capacity;
     }
 
     @Override

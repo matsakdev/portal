@@ -32,12 +32,24 @@ public class DishesController {
     @Autowired
     private ProductRepository productRepository;
 
+    @GetMapping
+    public ResponseEntity<Set<Dish>> getAllDishes() {
+        Set<Dish> dishes = dishRepository.findAll();
+        return new ResponseEntity(dishes, HttpStatus.OK);
+    }
+
     @PostMapping("/")
     @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<Dish> addDish(@RequestBody AddDishRequest addDishRequest) {
         Set<DishProduct> dishProducts = getDishProducts(addDishRequest.getDish(), addDishRequest.getProducts());
         dishRepository.createDish(addDishRequest.getDish(), addDishRequest.getCategoryId(), addDishRequest.getInstructions(), dishProducts);
         return new ResponseEntity<>(addDishRequest.getDish(), HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Set<Dish>> getAllDishesInCategory(@PathVariable(name="id") Long categoryId) {
+        Set<Dish> dishes = dishRepository.getAllByCategory(categoryId);
+        return new ResponseEntity<>(dishes, HttpStatus.OK);
     }
 
     private Set<DishProduct> getDishProducts(Dish dish, Map<Long, Long> products) {
