@@ -2,6 +2,7 @@ package com.portal.server.controller;
 
 import com.portal.server.entity.Fridge;
 import com.portal.server.entity.Product;
+import com.portal.server.payload.ApiResponse;
 import com.portal.server.payload.ProductRequest;
 import com.portal.server.repository.FridgeRepository;
 import com.portal.server.security.UserPrincipal;
@@ -43,6 +44,20 @@ public class FridgeController {
                                                      @PathVariable(name = "count") Long productAmount) {
         fridgeRepository.deleteProductFromFridge(principal.getId(), productId, productAmount);
         return ResponseEntity.ok(fridgeRepository.getProductsFromUserFridge(principal.getId()));
+    }
+
+    @PutMapping("/{id}/setamount/{amount}")
+    public ResponseEntity<?> setAmountOfProductsInFridge(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @PathVariable(name = "id") Long productId,
+            @PathVariable(name = "amount") Long amount) {
+        try {
+            fridgeRepository.setAmountOfProduct(principal.getId(), productId, amount);
+            return ResponseEntity.ok(fridgeRepository.getProductsFromUserFridge(principal.getId()));
+        }
+        catch (Exception e) {
+            return new ResponseEntity(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

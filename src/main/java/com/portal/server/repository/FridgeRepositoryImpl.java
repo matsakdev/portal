@@ -27,4 +27,10 @@ public class FridgeRepositoryImpl implements FridgeRepository {
     public void deleteProductFromFridge(Long userid, Long productId, Long productAmount) {
         fridgeDao.deleteProductFromFridge(userid, productId, productAmount);
     }
+
+    @Override
+    public void setAmountOfProduct(Long userId, Long productId, Long amount) {
+        fridgeDao.setAmountOfProduct(userId, productId, amount);
+    }
+
 }

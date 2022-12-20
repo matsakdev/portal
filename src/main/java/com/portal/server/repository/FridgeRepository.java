@@ -8,4 +8,6 @@ public interface FridgeRepository {
     Set<Product> getProductsFromUserFridge(Long userId);
     void addProductToFridge(Long userId, Long productId, Long productAmount);
     void deleteProductFromFridge(Long userid, Long productId, Long productAmount);
+
+    void setAmountOfProduct(Long userId, Long productId, Long amount);
 }

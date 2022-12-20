@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.Transient;
 
 import java.util.Set;
 
@@ -52,6 +54,26 @@ public class FridgeDaoImpl implements FridgeDao {
         else {
             fridgeElement.setAmount(fridgeElement.getAmount() - productAmount);
             entityManager.persist(fridgeElement);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void setAmountOfProduct(Long userId, Long productId, Long amount) {
+        if (amount <= 0) {
+            deleteProductFromFridge(userId, productId, amount);
+        }
+        else {
+            try {
+                Fridge fridge = (Fridge)entityManager.createQuery("SELECT fridge FROM Fridge fridge" +
+                        " WHERE fridge.id.userId=" + userId + " AND fridge.id.productId=" + productId).getSingleResult();
+                fridge.setAmount(amount);
+                entityManager.persist(fridge);
+            }
+            catch (Exception e) {
+                throw new NoResultException("Cannot find this product");
+            }
+
         }
     }
 }

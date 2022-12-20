@@ -51,7 +51,7 @@ public class UserController {
                 .orElseThrow(() -> new
                         IllegalArgumentException("User with @id:" + userId + " doesn't exist"));
         user.setAuthority(Authority.valueOf("ROLE_" + userDTO.getAuthority()));
-        user.setName(userDTO.getFirstName());
+        user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         user.setNote(userDTO.getNote());
         userRepository.save(user);
