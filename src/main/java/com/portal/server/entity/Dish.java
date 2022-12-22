@@ -29,6 +29,12 @@ public class Dish {
     @OneToMany(mappedBy = "dish")
     protected Set<Recipe> instructions = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name="DISH_RESTRICTIONS",
+            joinColumns = @JoinColumn(name="DISH_ID"),
+            inverseJoinColumns = @JoinColumn(name="RESTRICTION_ID"))
+    protected Set<Restriction> restrictions;
+
     public Dish(){}
 
     public Dish(String name, String photo, DishCategory category, Double caloricity, Set<DishProduct> dishProducts, Set<Recipe> instructions) {
@@ -96,6 +102,14 @@ public class Dish {
 
     public void setCaloricity(Double caloricity) {
         this.caloricity = caloricity;
+    }
+
+    public Set<Restriction> getRestrictions() {
+        return restrictions;
+    }
+
+    public void setRestrictions(Set<Restriction> restrictions) {
+        this.restrictions = restrictions;
     }
 
     @Override

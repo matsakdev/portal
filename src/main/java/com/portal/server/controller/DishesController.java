@@ -2,40 +2,41 @@ package com.portal.server.controller;
 
 import com.portal.server.entity.Dish;
 import com.portal.server.entity.DishProduct;
-import com.portal.server.entity.Product;
-import com.portal.server.entity.Recipe;
 import com.portal.server.payload.AddDishRequest;
 import com.portal.server.payload.ApiResponse;
 import com.portal.server.repository.DishRepository;
-import com.portal.server.repository.ProductRepository;
-import com.portal.server.repository.UserRepository;
+import com.portal.server.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/dishes")
 public class DishesController {
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private DishRepository dishRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
 
     @GetMapping
-    public ResponseEntity<Set<Dish>> getAllDishes() {
+    public ResponseEntity<Set<Dish>> getAllDishes(@AuthenticationPrincipal UserPrincipal principal) {
         Set<Dish> dishes = dishRepository.findAll();
-        return new ResponseEntity(dishes, HttpStatus.OK);
+        Set<Dish> filteredDishes = filterByRestrictions(dishes, principal.getId());
+        return new ResponseEntity(filteredDishes, HttpStatus.OK);
+    }
+
+    private Set<Dish> filterByRestrictions(Set<Dish> dishes, Long userId) {
+        return dishes.stream()
+                .filter(dish -> dishRepository.matchRestrictions(dish, userId))
+                .collect(Collectors.toSet());
     }
 
     @PostMapping("/")
@@ -47,9 +48,12 @@ public class DishesController {
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity<Set<Dish>> getAllDishesInCategory(@PathVariable(name="id") Long categoryId) {
+    public ResponseEntity<Set<Dish>> getAllDishesInCategory(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @PathVariable(name="id") Long categoryId) {
         Set<Dish> dishes = dishRepository.getAllByCategory(categoryId);
-        return new ResponseEntity<>(dishes, HttpStatus.OK);
+        Set<Dish> filteredDishes = filterByRestrictions(dishes, principal.getId());
+        return new ResponseEntity<>(filteredDishes, HttpStatus.OK);
     }
 
     private Set<DishProduct> getDishProducts(Dish dish, Map<Long, Long> products) {

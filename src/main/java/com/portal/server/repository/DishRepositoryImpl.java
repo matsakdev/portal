@@ -8,7 +8,6 @@ import com.portal.server.entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -67,6 +66,11 @@ public class DishRepositoryImpl implements DishRepository {
     @Override
     public Set<Dish> getAllByCategory(Long categoryId) {
         return dishDAO.getAllDishesByCategory(categoryId);
+    }
+
+    @Override
+    public boolean matchRestrictions(Dish dish, Long userId) {
+        return dishDAO.matchRestrictions(dish, userId);
     }
 
 }
